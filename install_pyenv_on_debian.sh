@@ -1,5 +1,5 @@
 #!/bin/bash
-#필수 패키지 설
+#필수 패키지 설치
 apt-get update && apt-get install -y \
   build-essential libssl-dev zlib1g-dev libbz2-dev \
   libreadline-dev libsqlite3-dev wget curl llvm \
