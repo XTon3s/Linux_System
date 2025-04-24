@@ -1,41 +1,29 @@
 #!/bin/bash
 
-# 오류 발생 시 스크립트 중단
 set -e
 
-sudo apt update
-sudo apt install -y make build-essential libssl-dev zlib1g-dev \
+apt update && apt install -y make build-essential libssl-dev zlib1g-dev \
   libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
   libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev \
-  libffi-dev liblzma-dev git
+  libffi-dev liblzma-dev git ca-certificates
 
+export PYENV_ROOT="/root/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PYENV_ROOT/shims:$PATH"
 
 curl https://pyenv.run | bash
 
-echo "쉘 설정 파일에 pyenv 설정 추가 중..."
-{
-  echo ''
-  echo '# pyenv 설정'
-  echo 'export PATH="$HOME/.pyenv/bin:$PATH"'
-  echo 'eval "$(pyenv init --path)"'
-  echo 'eval "$(pyenv virtualenv-init -)"'
-} >> ~/.bashrc
-
-# 현재 세션에 pyenv 적용
-export PATH="$HOME/.pyenv/bin:$PATH"
+echo "pyenv 설치 후 환경 설정"
+export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
 eval "$(pyenv virtualenv-init -)"
 
-echo "python 3.12.0 install"
+echo "python 3.12.0 install 시작"
 pyenv install 3.12.0
 
-echo "pyenv local 3.12.0"
+echo "pyenv local 설정"
 pyenv local 3.12.0
 
-echo "pyenv -v"
+echo "pyenv 버전:"
 pyenv -v
-
-echo "python --version"
+echo "python 버전:"
 python --version
-
-
